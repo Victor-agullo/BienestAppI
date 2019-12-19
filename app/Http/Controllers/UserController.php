@@ -3,82 +3,40 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Helpers\Token;
+use App\User;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    function __construct(Request $request)
     {
-        //
+        $this->user  = $request->name;
+        $this->mail = $request->email;
+        $this->pass = $request->password;
+        $this->request = $request;
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function register()
     {
-        //
+        $users = new User;
+        $users->name = $this->user;
+        $users->email = $this->mail;
+        $users->password = encrypt($this->pass);
+        $users->save();
+
+        $tokenizer = new Token($this->request);
+        return $tokenizer->encoder($users->email);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function login()
     {
-        //
-    }
+        $data = ['email' => $this->mail];
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+        $user = User::where($data)->first();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        if ($this->pass == decrypt($user->password)) {
+            $login = new Token($this->request);
+            return $login->encoder($this->mail);
+        }
     }
 }

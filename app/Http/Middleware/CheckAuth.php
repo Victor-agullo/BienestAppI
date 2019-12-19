@@ -3,6 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use App\Helpers\Token;
+use App\User;
 
 class CheckAuth
 {
@@ -15,6 +17,21 @@ class CheckAuth
      */
     public function handle($request, Closure $next)
     {
-        return $next($request);
+
+        $login = new Token($request);
+
+        $mailReceived = $login->decoder();
+
+        $data = ['email' => $mailReceived];
+
+        $mailExpected = User::where($data)->first();
+
+        if ($mailExpected->email) {
+            return $next($request);
+        }
+
+        return response()->json([
+            'message' => "Acceso no autorizado.",
+        ], 401);
     }
 }
