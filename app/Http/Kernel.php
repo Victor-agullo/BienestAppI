@@ -45,6 +45,10 @@ class Kernel extends HttpKernel
         'auth' => [
             \App\Http\Middleware\CheckAuth::class
         ],
+
+        'seize' => [
+            \App\Http\Middleware\CheckAuth::class
+        ],
     ];
 
     /**
