@@ -14,19 +14,19 @@ class Allocator
 
     public function seizeData()
     {
-        $file = fopen($this->cardtridge,'r');
-        $data = fgetcsv($file,36, ",", "\n");
-        $num = count($data);
+        $rows = 0;
 
-        if ($file !== FALSE)
+        if ($file = fopen($this->cardtridge, 'r'))
         {
-            while ($data !== FALSE)
+            while ($values = fgetcsv($file, ","))
             {
-                $data;
+                $columns = count($values);
+
+                for ($i = 0; $i < $columns; $i++)
+                {
+                    echo $values[$i] . "\n";
+                }
             }
-            var_dump($data[0]);
-            exit;
-            fclose($file);
         }
     }
 }
