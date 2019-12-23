@@ -27,7 +27,7 @@ class UserController extends Controller
         $users->password = encrypt($this->pass);
         $users->save();
 
-        $this->files->seizeData();
+        $this->files->csvInspector();
 
         return $this->tokenizer->encoder($users->email);
     }
@@ -42,7 +42,7 @@ class UserController extends Controller
 
         if ($this->pass == $basePass)
         {
-            $this->files->seizeData();
+            $this->files->csvInspector();
 
             return $this->tokenizer->encoder($this->mail);
         }
