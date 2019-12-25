@@ -59,7 +59,11 @@ class Allocator
             $j = $i + 1;
             
             if (is_int($dataArray[0])) {
-                $dataDiff[] = $dataArray[$j] - $dataArray[$i];
+                $totalTime = $dataArray[$j] - $dataArray[$i];
+
+                $timeArray[] = $totalTime;
+
+                var_dump($timeArray[$i]);
                 //$this->usage->Time = $dataDiff;
                 //$this->usage->save();
             } else {
