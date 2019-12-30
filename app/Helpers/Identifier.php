@@ -2,6 +2,7 @@
 
 namespace App\Helpers;
 
+use App\Helpers\Token;
 use App\Application;
 use App\User;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,11 +11,17 @@ class Identifier
 {
     function __construct(Request $request)
     {
+        $this->request = $request;
         $this->email = $request->email;
     }
 
     public function idUserGetter()
     {
+        if ($this->email==NULL) {
+            $tokenizer = new Token($this->request);
+            $decoded = $tokenizer->decoder();
+            $this->email = $decoded;
+        }
         $data = ['email' => $this->email];
 
         $id_user = User::where($data)->first();
@@ -22,14 +29,12 @@ class Identifier
         return $id_user->id;
     }
 
-    public function idAppsGetter()
+    public function idAppGetter($appName)
     {
-        $id_user = $this->idUserGetter();
+        $data = ['name' => $appName];
 
-        $data = ['id_user' => $id_user];
+        $id_app = Application::where($data)->first();
 
-        $id_app = Application::where($data)->get('id');
-
-        return $id_app;
+        return $id_app->id;
     }
 }

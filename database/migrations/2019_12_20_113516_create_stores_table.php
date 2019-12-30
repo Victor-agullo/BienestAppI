@@ -14,14 +14,11 @@ class CreateStoresTable extends Migration
     public function up()
     {
         Schema::create('stores', function (Blueprint $table) {
-            $table->primary([
-                'ID_USER',
-                'ID_APP',
-                ]);
-            $table->unsignedInteger('ID_USER');
-            $table->unsignedInteger('ID_APP');
-            $table->string('Longitude');
-            $table->string('Latitude');
+            $table->increments('id');
+            $table->unsignedInteger('id_user')->references('id')->on('users');
+            $table->unsignedInteger('id_app')->references('id')->on('applications');
+            $table->string('latitude');
+            $table->string('longitude');
             $table->timestamps();
         });
     }

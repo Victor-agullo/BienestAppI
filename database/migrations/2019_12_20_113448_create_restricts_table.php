@@ -14,15 +14,12 @@ class CreateRestrictsTable extends Migration
     public function up()
     {
         Schema::create('restricts', function (Blueprint $table) {
-            $table->primary([
-                'ID_USER',
-                'ID_APP',
-                ]);
-            $table->unsignedInteger('ID_USER');
-            $table->unsignedInteger('ID_APP');
-            $table->time('Max time');
-            $table->time('Start at');
-            $table->time('Finish at');
+            $table->increments('id');
+            $table->unsignedInteger('id_user')->references('id')->on('users');
+            $table->unsignedInteger('id_app')->references('id')->on('applications');
+            $table->time('max_time')->nullable();
+            $table->time('start_at')->nullable();
+            $table->time('finish_at')->nullable();
             $table->timestamps();
         });
     }

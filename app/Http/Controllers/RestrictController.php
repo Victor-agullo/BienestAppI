@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Restrict;
 use Illuminate\Http\Request;
 
 class RestrictController extends Controller
 {
     function __construct(Request $request)
     {
-        $this->user  = $request->name;
-        $this->mail = $request->email;
-        $this->pass = $request->password;
         $this->request = $request;
     }
 
@@ -19,9 +17,10 @@ class RestrictController extends Controller
         //
     }
 
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $restriction = new Restrict;
+        $restriction->addRestriction($this->request);
     }
 
     public function show($id)
@@ -34,8 +33,7 @@ class RestrictController extends Controller
         //
     }
 
-    public function update(Request $request, $id)
+    public function update()
     {
-        //
     }
 }

@@ -14,14 +14,11 @@ class CreateUsagesTable extends Migration
     public function up()
     {
         Schema::create('usages', function (Blueprint $table) {
-            $table->primary([
-                'ID_USER',
-                'ID_APP',
-                ]);
-            $table->unsignedInteger('ID_USER');
-            $table->unsignedInteger('ID_APP');
-            $table->time('Time');
-            $table->date('Date');
+            $table->increments('id');
+            $table->unsignedInteger('id_user')->references('id')->on('users');
+            $table->unsignedInteger('id_app')->references('id')->on('applications');
+            $table->time('time');
+            $table->datetime('date');
             $table->timestamps();
         });
     }

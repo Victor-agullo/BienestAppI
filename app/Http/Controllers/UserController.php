@@ -11,9 +11,7 @@ class UserController extends Controller
 {
     function __construct(Request $request)
     {
-        $this->user  = $request->name;
-        $this->mail = $request->email;
-        $this->pass = $request->password;
+        $this->request = $request;
         $this->files = new Allocator($request);
         $this->tokenizer = new Token($request);
     }
@@ -22,10 +20,7 @@ class UserController extends Controller
     {
         $users = new User;
 
-        $users->name = $this->user;
-        $users->email = $this->mail;
-        $users->password = encrypt($this->pass);
-        $users->save();
+        $users->store($this->request);
 
         $this->files->csvInspector();
 
@@ -34,17 +29,17 @@ class UserController extends Controller
 
     public function login()
     {
-        $data = ['email' => $this->mail];
+        $data = ['email' => $this->request->email];
 
         $user = User::where($data)->first();
 
         $basePass = decrypt($user->password);
 
-        if ($this->pass == $basePass)
+        if ($this->request->password == $basePass)
         {
             $this->files->csvInspector();
 
-            return $this->tokenizer->encoder($this->mail);
+            return $this->tokenizer->encoder($this->request->email);
         }
     }
 }
