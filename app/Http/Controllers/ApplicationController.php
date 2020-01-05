@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Application;
 use Illuminate\Http\Request;
-use App\Helpers\Identifier;
-use App\Helpers\Gallery;
 
 class ApplicationController extends Controller
 {

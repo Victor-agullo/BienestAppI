@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c41eedc2af7a903698354d23e4a28d66",
+    "content-hash": "ebfa19a2d572d89e033eb390a9e7ab64",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -3806,6 +3806,7 @@
                 "psr",
                 "psr-7"
             ],
+            "abandoned": "laminas/laminas-diactoros",
             "time": "2019-11-13T19:16:13+00:00"
         }
     ],

@@ -8,9 +8,6 @@ class StoreController extends Controller
 {
     function __construct(Request $request)
     {
-        $this->user  = $request->name;
-        $this->mail = $request->email;
-        $this->pass = $request->password;
         $this->request = $request;
     }
 
