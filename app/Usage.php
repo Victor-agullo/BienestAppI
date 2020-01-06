@@ -23,7 +23,49 @@ class Usage extends Model
 
         $dates = date('Y-m-d H:i:s', $formattedTime);
         $usages->Date = $dates;
-        
+
         $usages->save();
+    }
+
+    public function totalTime($data)
+    {
+        $times = Usage::where($data)
+            ->select('time')
+            ->get();
+        $sum = 0;
+
+        foreach ($times as $key => $value) {
+            $sum += strtotime($value->time);
+        }
+        $total = Date("H:i:s", $sum);
+        $average = Date("H:i:s", $sum / count($times));
+
+        return [
+            'total' => $total,
+            'medio total' => $average,
+        ];
+    }
+
+    public function dailyTime($data)
+    {
+        $times = Usage::where($data)
+            ->select('time', 'date')
+            ->latest('date')
+            ->get();
+
+        $num = [];
+
+        foreach ($times as $key => $value) {
+            $day = Date('d', strtotime($value->date));
+
+            if (!in_array($day, $num)) {
+                $num[] = $day;
+                $keeper = $day;
+                $timeSum = 0;
+            }
+            $timeSum += strtotime($value->time);
+            $diary[$keeper] =  Date("H:i:s", $timeSum);
+        }
+        return $diary;
     }
 }

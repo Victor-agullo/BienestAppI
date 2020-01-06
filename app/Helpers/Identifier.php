@@ -37,4 +37,18 @@ class Identifier
 
         return $id_app->id;
     }
+
+    public function fullID()
+    {
+        $id_user = $this->idUserGetter();
+        $appName = $this->request->app;
+        $id_app = $this->idAppGetter($appName);
+
+        $data = [
+            'id_user' => $id_user,
+            'id_app' => $id_app,
+        ];
+
+        return $data;
+    }
 }
