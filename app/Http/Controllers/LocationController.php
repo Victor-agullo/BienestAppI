@@ -3,28 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Identifier;
-use App\Usage;
+use App\Location;
 use Illuminate\Http\Request;
 
-class UsageController extends Controller
+class LocationController extends Controller
 {
     function __construct(Request $request)
     {
         $this->request = $request;
         $this->identify = new Identifier($request);
-        $this->use = new Usage;
     }
-    
-    public function times()
+
+    public function trace()
     {
         $data = $this->identify->fullID();
-
-        $total = $this->use->totalTime($data);
-        $daily = $this->use->dailyTime($data);
-
+        $lastPlace = Location::where($data)->latest()->first();
         return response()->json([
-            'tiempo' => $total,
-            'tiempo en los días' => $daily,
+            'latitude' => $lastPlace->latitude,
+            'longitude' => $lastPlace->longitude,
         ], 200);
     }
 }

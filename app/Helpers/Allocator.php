@@ -3,7 +3,7 @@
 namespace App\Helpers;
 
 use App\Application;
-use App\Store;
+use App\Location;
 use App\Usage;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -15,7 +15,7 @@ class Allocator
         $this->cardtridge = $request->csvFile;
         $this->apps = new Application;
         $this->usages = new Usage;
-        $this->places = new Store;
+        $this->places = new Location;
     }
 
     public function csvInspector()

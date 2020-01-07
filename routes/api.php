@@ -18,10 +18,8 @@ Route::post('login', 'UserController@login');
 Route::post('forgot', 'UserController@passRecovery');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::apiResource('users', 'UserController');
-    Route::apiResource('applications', 'ApplicationController');
+    Route::apiResource('store', 'ApplicationController');
     Route::apiResource('restricts', 'RestrictController');
-    Route::apiResource('stores', 'StoreController');
-    Route::apiResource('usages', 'UsageController');
     Route::post('times', 'UsageController@times');
+    Route::post('trace', 'LocationController@trace');
 });

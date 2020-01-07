@@ -13,7 +13,7 @@ class Application extends Model
         $apps = new Application;
 
         $apps->name = $value;
-        //No me convence ABSOLUTAMENTE NADA la siguiente línea:
+    
         $apps->icon = Storage::url("$value.png");
         $apps->save();
     }
