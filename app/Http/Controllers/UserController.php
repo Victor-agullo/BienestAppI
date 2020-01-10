@@ -25,7 +25,7 @@ class UserController extends Controller
 
         $users->store($this->request);
 
-        $this->files->csvInspector();
+        //$this->files->csvInspector();
 
         return $this->tokenizer->encoder($users->email);
     }
@@ -39,7 +39,7 @@ class UserController extends Controller
         $basePass = decrypt($user->password);
 
         if ($this->request->password == $basePass) {
-            $this->files->csvInspector();
+            //$this->files->csvInspector();
 
             return $this->tokenizer->encoder($this->request->email);
         }
@@ -51,7 +51,7 @@ class UserController extends Controller
         $to_email = $this->request->email;
 
         $psswd = $this->newPass->passGenerator();
-        
+
         $data = array('name' => $to_name, "pass" => $psswd);
 
         Mail::send('emails.forgot', $data, function ($message) use ($to_name, $to_email) {
