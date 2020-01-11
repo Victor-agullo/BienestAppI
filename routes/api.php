@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,6 @@ Route::post('login', 'UserController@login');
 Route::post('forgot', 'UserController@passRecovery');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::apiResource('store', 'ApplicationController');
     Route::apiResource('restricts', 'RestrictController');
     Route::post('times', 'UsageController@times');
     Route::post('trace', 'LocationController@trace');
