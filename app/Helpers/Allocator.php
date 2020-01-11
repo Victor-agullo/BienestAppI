@@ -47,8 +47,7 @@ class Allocator
             if (!Usage::where($data)->first()) {
                 $this->appRegistry($appName, $i);
                 $i--;
-                $this->dataProcess($formattedTime, $appName, $i);
-                $this->seizeData($latitudeArray, $longitudeArray, $appName, $i);
+                $this->dataProcess($formattedTime, $appName, $i);$this->places->savingPlaces($this->request, $latitudeArray[$i], $longitudeArray[$i], $appName[$i]);
                 $i++;
             }
         }
@@ -69,10 +68,5 @@ class Allocator
         $totalTime = $closes - $opens;
 
         $this->usages->store($this->request, $appName[$i], $totalTime, $formattedTime[$i]);
-    }
-
-    public function seizeData($latitudeArray, $longitudeArray, $appName, $i)
-    {
-        $this->places->savingPlaces($this->request, $latitudeArray[$i], $longitudeArray[$i], $appName[$i]);
     }
 }
