@@ -15,4 +15,13 @@ class User extends Model
         $user->password = encrypt($request->password);
         $user->save();
     }
+
+    public function applications()
+    {
+        return $this->hasManyThrough(
+            'App\Application',
+            'App\Location',
+            'App\Restrict', 
+            'App\Usage');
+    }
 }

@@ -17,7 +17,7 @@ class LocationController extends Controller
     public function trace()
     {
         $data = $this->identify->fullID();
-        $lastPlace = Location::where($data)->latest()->first();
+        $lastPlace = Location::where($data)->latest('id')->first();
         return response()->json([
             'latitude' => $lastPlace->latitude,
             'longitude' => $lastPlace->longitude,

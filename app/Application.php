@@ -25,4 +25,13 @@ class Application extends Model
         $apps->icon = Storage::url("$request->name.png");
         $apps->save();
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(
+            'App\User',
+            'App\Location',
+            'App\Restrict',
+            'App\Usage');
+    }
 }
