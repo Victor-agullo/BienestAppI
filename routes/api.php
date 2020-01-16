@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\URL;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,4 +19,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::apiResource('restricts', 'RestrictController');
     Route::post('times', 'UsageController@times');
     Route::post('trace', 'LocationController@trace');
+    Route::get('prueba', 'UsageController@retrieveAllTimes');
 });

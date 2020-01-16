@@ -47,7 +47,8 @@ class Allocator
             if (!Usage::where($data)->first()) {
                 $this->appRegistry($appName, $i);
                 $i--;
-                $this->dataProcess($formattedTime, $appName, $i);$this->places->savingPlaces($this->request, $latitudeArray[$i], $longitudeArray[$i], $appName[$i]);
+                $this->dataProcess($formattedTime, $appName, $i);
+                $this->places->savingPlaces($this->request, $latitudeArray[$i], $longitudeArray[$i], $appName[$i]);
                 $i++;
             }
         }
