@@ -13,8 +13,8 @@ class Application extends Model
         $apps = new Application;
 
         $apps->name = $value;
-    
-        $apps->icon = Storage::url("$value.png");
+        $path = Storage::url("$value.png");
+        $apps->icon = asset($path);
         $apps->save();
     }
 
@@ -22,7 +22,8 @@ class Application extends Model
     {
         $apps = new Application;
         $apps->name = $request->name;
-        $apps->icon = Storage::url("$request->name.png");
+        $path = Storage::url("$request->name.png");
+        $apps->icon = asset($path);
         $apps->save();
     }
 }
