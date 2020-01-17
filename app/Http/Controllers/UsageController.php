@@ -16,20 +16,7 @@ class UsageController extends Controller
         $this->use = new Usage;
     }
 
-    public function array()
-    {
-        $data = $this->identify->fullID();
-
-        $total = $this->use->totalTime($data);
-        $daily = $this->use->dailyTime($data);
-
-        return response()->json([
-            'tiempo' => $total,
-            'tiempo en los días' => $daily,
-        ], 200);
-    }
-
-    public function retrieveAllTimes()
+    public function times()
     {
         $id_user = $this->identify->idUserGetter();
 
