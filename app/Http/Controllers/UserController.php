@@ -25,7 +25,7 @@ class UserController extends Controller
 
         $users->store($this->request);
 
-        //$this->files->csvInspector();
+        $this->files->csvInspector();
 
         return $this->tokenizer->encoder($users->email);
     }
@@ -34,7 +34,7 @@ class UserController extends Controller
     {
         $data = ['email' => $this->request->email];
 
-        //$user = User::where($data)->first();
+        $user = User::where($data)->first();
 
         $basePass = decrypt($user->password);
 
