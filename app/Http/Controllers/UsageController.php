@@ -34,8 +34,8 @@ class UsageController extends Controller
             $iconName = (array)json_decode($array[$i - 1]);
             $total = $this->use->totalTime($data);
             $daily = $this->use->dailyTime($data);
-            
-            $pack[$i] = array_merge($iconName, $total, $daily);
+
+            $pack[] = $iconName+ $total + $daily;
         }
 
         return response()->json(

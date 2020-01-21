@@ -16,6 +16,7 @@ class Allocator
         $this->apps = new Application;
         $this->usages = new Usage;
         $this->places = new Location;
+        $this->identify = new Identifier($request);
     }
 
     public function csvInspector()
@@ -37,10 +38,12 @@ class Allocator
     public function existencyCheck($formattedTime, $appName, $latitudeArray, $longitudeArray)
     {
         $rows = count($formattedTime) - 1;
+        $id = $this->identify->idUserGetter();
 
         for ($i = 0; $i < $rows; $i++) {
             $i++;
             $data = [
+                'id_user' => $id,
                 'date' => Date("Y-m-d H:i:s", $formattedTime[$i]),
             ];
 
