@@ -18,5 +18,5 @@ Route::post('forgot', 'UserController@passRecovery');
 Route::group(['middleware' => ['auth']], function () {
     Route::apiResource('restricts', 'RestrictController');
     Route::get('times', 'UsageController@times');
-    Route::post('trace', 'LocationController@trace');
+    Route::get('trace', 'LocationController@trace');
 });

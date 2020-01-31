@@ -34,21 +34,7 @@ class Identifier
         $data = ['name' => $appName];
 
         $id_app = Application::where($data)->first();
-        
+
         return $id_app->id;
-    }
-
-    public function fullID()
-    {
-        $id_user = $this->idUserGetter();
-        $appName = $this->request->appName;
-        $id_app = $this->idAppGetter($appName);
-
-        $data = [
-            'id_user' => $id_user,
-            'id_app' => $id_app,
-        ];
-
-        return $data;
     }
 }

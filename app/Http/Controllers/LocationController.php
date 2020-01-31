@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Application;
 use App\Helpers\Identifier;
 use App\Location;
 use Illuminate\Http\Request;
@@ -16,11 +17,22 @@ class LocationController extends Controller
 
     public function trace()
     {
-        $data = $this->identify->fullID();
-        $lastPlace = Location::where($data)->latest('id')->first();
-        return response()->json([
-            'latitude' => $lastPlace->latitude,
-            'longitude' => $lastPlace->longitude,
-        ], 200);
+        $id_user = $this->identify->idUserGetter();
+
+        $rows = Application::count('id') + 1;
+
+        for ($i = 1; $i < $rows; $i++) {
+            $data = [
+                'id_user' => $id_user,
+                'id_app' => $i
+            ];
+
+            $lastPlace = Location::where( $data )->latest('id')->first();
+
+            $organisedArray[] = [
+                'latitude' => $lastPlace->latitude,
+                'longitude' => $lastPlace->longitude];
+    }
+        return response()->json($organisedArray, 200);
     }
 }

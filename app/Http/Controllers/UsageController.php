@@ -35,7 +35,7 @@ class UsageController extends Controller
             $total = $this->use->totalTime($data);
             $daily = $this->use->dailyTime($data);
 
-            $pack[] = $iconName+ $total + $daily;
+            $pack[] = $iconName + $total + $daily;
         }
 
         return response()->json(
