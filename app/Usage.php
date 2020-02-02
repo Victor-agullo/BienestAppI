@@ -56,7 +56,7 @@ class Usage extends Model
         $num = [];
 
         foreach ($times as $key => $value) {
-            $day = Date('d', strtotime($value->date));
+            $day = Date('Y-m-d', strtotime($value->date));
 
             if (!in_array($day, $num)) {
                 $num[] = $day;

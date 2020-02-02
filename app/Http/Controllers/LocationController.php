@@ -31,7 +31,8 @@ class LocationController extends Controller
 
             $organisedArray[] = [
                 'latitude' => $lastPlace->latitude,
-                'longitude' => $lastPlace->longitude];
+                'longitude' => $lastPlace->longitude
+            ];
     }
         return response()->json($organisedArray, 200);
     }
