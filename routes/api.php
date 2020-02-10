@@ -19,4 +19,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::apiResource('restricts', 'RestrictController');
     Route::get('times', 'UsageController@times');
     Route::get('trace', 'LocationController@trace');
+    Route::get('checkRestrictions', 'RestrictController@checkRestrictions');
 });

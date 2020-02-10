@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Helpers\Identifier;
+use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
@@ -35,62 +36,34 @@ class Usage extends Model
         $sum = 0;
 
         foreach ($times as $key => $value) {
-            $sum += strtotime($value->time);
+            $dayTime = $this->timeConverter($value->time);
+            $sum += $dayTime;
         }
 
-        $total = Date("H:i:s", $sum);
-        $dailyAverage = $this->dayAvg($times);
-        $weeklyAverage = $this->weekAvg($times);
-        $monthlyAverage = $this->monthAvg($times);
+        $days = count($times);
+        $dayAvg = $sum / $days;
+        $weekAvg = $sum / 7;
+        $monthAvg = $sum / 30;
 
-        $total = Date("H:i:s", $sum);
-        $average = Date("H:i:s", $sum / count($times));
+        $total = date("H:i:s", $sum);
+        $dayAvgFormatted = date("H:i:s", $dayAvg);
+        $weekAvgFormatted = date("H:i:s", $weekAvg);
+        $monthAvgFormatted = date("H:i:s", $monthAvg);
 
         return [
             'total' => $total,
-            'medio total' => $average,
+            'medio diario' => $dayAvgFormatted,
+            'medio semanal' => $weekAvgFormatted,
+            'medio mensual' => $monthAvgFormatted,
         ];
-        /*
-        return [
-            'total' => $total,
-            'medio diario' => $dailyAverage,
-            'medio semanal' => $weeklyAverage,
-            'medio mensual' => $monthlyAverage
-        ];
-        */
     }
 
-    public function dayAvg($times)
+    public function timeConverter($time)
     {
-        foreach ($times as $key => $value) {
-            $day = Date("d", strtotime($value->time));
-
-            if ($day) {
-                # code...
-            }
-        }
-    }
-
-    public function weekAvg($times)
-    {
-        foreach ($times as $key => $value) {
-            $month = Date("m", strtotime($value->time));
-
-            if ($month) {
-                # code...
-            }
-        }
-    }
-
-    public function monthAvg($times)
-    {
-        foreach ($times as $key => $value) {
-            $year = Date("Y", strtotime($value->time));
-
-            if ($year) {
-                # code...
-            }
-        }
+        list($hours, $minutes, $seconds) = explode(":", $time);
+        $minutes += $hours * 60;
+        $seconds += $minutes * 60;
+        return $seconds;
     }
 
     public function dailyTime($data)
